@@ -10,7 +10,7 @@ const getCourseNumber = (course) => course.id.slice(1, 4);
 const Banner = ({ title }) => <h1 className='m-4'>{title}</h1>;
 
 const CourseList = ({ courses }) => {
-  const [term, setTerm] = useState();
+  const [term, setTerm] = useState("Fall");
   const termCourses = Object.values(courses).filter(
     (course) => term === getCourseTerm(course)
   );
