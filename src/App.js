@@ -42,7 +42,7 @@ const Banner=({title}) => (
 )
 
 const CourseList=({courses}) => (
-<div className="course-list">
+<div className="course-list m-3">
     {Object.values(courses).map(course => <Course key={course.id} course={course} />)}
   </div>
 )
