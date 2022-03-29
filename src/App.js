@@ -15,14 +15,16 @@ const CourseList = ({ courses }) => {
     (course) => term === getCourseTerm(course)
   );
 
-  <>
-    <TermSelector term={term} setTerm={setTerm} />
-    <div className='course-list m-3'>
-      {termCourses.map((course) => (
-        <Course key={course.id} course={course} />
-      ))}
-    </div>
-  </>;
+  return (
+    <>
+      <TermSelector term={term} setTerm={setTerm} />
+      <div className='course-list m-3'>
+        {termCourses.map((course) => (
+          <Course key={course.id} course={course} />
+        ))}
+      </div>
+    </>
+  );
 };
 
 const TermSelector = ({ term, setTerm }) => (
