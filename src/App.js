@@ -11,7 +11,7 @@ const Banner = ({ title }) => <h1 className='m-4'>{title}</h1>;
 
 const CourseList = ({ courses }) => {
   const [term, setTerm] = useState("Fall");
-  const [selected, setSelected] = useState({});
+  const [selected, setSelected] = useState([]);
   const termCourses = Object.values(courses).filter(
     (course) => term === getCourseTerm(course)
   );
@@ -151,7 +151,6 @@ const App = () => {
   useEffect(() => {
     const fetchSchedule = async () => {
       const response = await fetch(url);
-      console.log(response);
       if (!response) throw response;
       const json = await response.json();
       setSchedule(addScheduleTimes(json));
