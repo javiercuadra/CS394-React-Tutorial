@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
+
+import { useData } from "./utilities/firebase";
+
 import CourseList from "./components/CourseList";
+
 import "./App.css";
 
 const Banner = ({ title }) => <h1 className='m-4'>{title}</h1>;
@@ -36,22 +40,10 @@ const timeParts = (meets) => {
 };
 
 const App = () => {
-  const [schedule, setSchedule] = useState();
-  const url = "https://courses.cs.northwestern.edu/394/data/cs-courses.php";
+  const [schedule, loading, error] = useData("/", addScheduleTimes);
 
-  useEffect(() => {
-    const fetchSchedule = async () => {
-      const response = await fetch(url);
-      // const response = require("./courses.json");
-      if (!response) throw response;
-      const json = await response.json();
-      // const json = response;
-      setSchedule(addScheduleTimes(json));
-    };
-    fetchSchedule();
-  }, []);
-
-  if (!schedule) return <h1>Loading...</h1>;
+  if (error) return <h1>{error}</h1>;
+  if (loading) return <h1>Loading the schedule...</h1>;
 
   return (
     <div className='container'>
