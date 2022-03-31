@@ -1,6 +1,6 @@
 import React from "react";
 
-import { setData } from "../utilities/firebase";
+import { setData, useUserState } from "../utilities/firebase";
 import {
   getCourseTerm,
   getCourseNumber,
@@ -32,6 +32,7 @@ const reschedule = async (course, meets) => {
 const Course = ({ course, selected, setSelected }) => {
   const isSelected = selected.includes(course);
   const isDisabled = !isSelected && hasConflict(course, selected);
+  const [user] = useUserState();
   const style = {
     backgroundColor: isDisabled
       ? "lightgrey"
@@ -44,7 +45,9 @@ const Course = ({ course, selected, setSelected }) => {
       className='card m-1 p-2'
       style={style}
       onClick={isDisabled ? null : () => setSelected(toggle(course, selected))}
-      onDoubleClick={() => reschedule(course, getCourseMeetingData(course))}
+      onDoubleClick={
+        !user ? null : () => reschedule(course, getCourseMeetingData(course))
+      }
     >
       <div className='card-body'>
         <div className='card-title'>
