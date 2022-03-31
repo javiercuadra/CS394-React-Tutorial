@@ -4,17 +4,22 @@ import Course from "./Course";
 
 import { terms, getCourseTerm } from "../utilities/times";
 
+const scheduleChanged = (selected, courses) =>
+  selected.some((course) => course !== courses[course.id]);
+
 const CourseList = ({ courses }) => {
   const [term, setTerm] = useState("Fall");
   const [selected, setSelected] = useState([]);
+  if (scheduleChanged(selected, courses)) {
+    setSelected([]);
+  }
   const termCourses = Object.values(courses).filter(
     (course) => term === getCourseTerm(course)
   );
-
   return (
     <>
       <TermSelector term={term} setTerm={setTerm} />
-      <div className='course-list m-3'>
+      <div className='course-list'>
         {termCourses.map((course) => (
           <Course
             key={course.id}
@@ -23,7 +28,7 @@ const CourseList = ({ courses }) => {
             setSelected={setSelected}
           />
         ))}
-      </div>
+      </div>{" "}
     </>
   );
 };

@@ -46,3 +46,5 @@ export const useData = (path, transform) => {
 
   return [data, loading, error];
 };
+
+export const setData = (path, value) => set(ref(database, path), value);
